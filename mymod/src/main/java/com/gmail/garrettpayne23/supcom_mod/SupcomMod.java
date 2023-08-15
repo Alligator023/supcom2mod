@@ -1,5 +1,7 @@
 package com.gmail.garrettpayne23.supcom_mod;
 
+import com.gmail.garrettpayne23.supcom_mod.blocks.ModBlocks;
+import com.gmail.garrettpayne23.supcom_mod.items.ModCreativeModeTabs;
 import com.gmail.garrettpayne23.supcom_mod.items.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -31,8 +33,8 @@ import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(MyMod.MODID)
-public class MyMod {
+@Mod(SupcomMod.MODID)
+public class SupcomMod {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "supcom_mod";
     // Directly reference a slf4j logger
@@ -40,21 +42,25 @@ public class MyMod {
 
     
     
-    public MyMod() {
+    public SupcomMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        // Register my custom Creative Mode tabs
+        ModCreativeModeTabs.register(modEventBus);
+        
+        // Register my custom items
         ModItems.register(modEventBus);
         
-        // Register the commonSetup method for modloading
+        // Register my custom blocks
+        ModBlocks.register(modEventBus);
+        
+        
+        
         modEventBus.addListener(this::commonSetup);
-
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
+        
+        // Register the mod's ForgeConfigSpec so that Forge can create and load the config file
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -66,22 +72,17 @@ public class MyMod {
     }
 
     
-    // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
-        	event.accept(ModItems.OVERCHARGE);
-        }
+        
     }
 
     
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         
     }
 
     
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent

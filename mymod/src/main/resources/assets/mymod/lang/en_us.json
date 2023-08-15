@@ -1,3 +1,18 @@
 {
 	"item.mymod.overcharge": "Overcharge"
+	"item.mymod.reclaim": "Reclaim"
+	
+	"creativetab.supcom_tab": "Supreme Commander"
+	
+	"block.mass_deposit": "Mass Deposit"
+	"block.mass_extractor": "Mass Extractor"
+	"block.power_generator": "Power Generator"
+	"block.research_station": "Research Station"
+	"block.point_defense": "Point Defense"
+	"block.aa_tower": "Anti-Air Tower"
+	"block.shield_gen": "Shield Generator"
+	"block.radar": "Radar Station"
+	"block.land_factory": "Land Factory"
+	"block.air_factory": "Air Factory"
+	"block.naval_factory": "Naval Factory"
 }
